@@ -1,6 +1,6 @@
 package com.heypixel.heypixelmod.mixin.O;
 
-import com.heypixel.heypixelmod.obsoverlay.ui.MainUI.MainUI;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.resources.ResourceLocation;
@@ -85,7 +85,7 @@ public class MixinTitleScreen {
             // 检查当前屏幕是否为标题界面，避免重复切换导致异常
             if (Minecraft.getInstance().screen instanceof TitleScreen) {
                 // 切换到自定义的MainUI界面
-                Minecraft.getInstance().setScreen(new MainUI());
+                Minecraft.getInstance().setScreen(new TitleScreen());
             }
         });
     }

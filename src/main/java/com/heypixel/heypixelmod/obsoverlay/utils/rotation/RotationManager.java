@@ -8,7 +8,7 @@ import com.heypixel.heypixelmod.obsoverlay.modules.impl.combat.AimAssist;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.combat.AttackCrystal;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.combat.Aura;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.misc.AntiWeb;
-import com.heypixel.heypixelmod.obsoverlay.modules.impl.misc.PearlPrediction;
+//import com.heypixel.heypixelmod.obsoverlay.modules.impl.misc.PearlPrediction;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.move.AutoMLG;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.move.LongJump;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.move.Scaffold;
@@ -47,7 +47,7 @@ public class RotationManager {
             AutoMLG autoMLG = (AutoMLG)Naven.getInstance().getModuleManager().getModule(AutoMLG.class);
             AimAssist aimAssist = (AimAssist)Naven.getInstance().getModuleManager().getModule(AimAssist.class);
             LongJump longJump = (LongJump)Naven.getInstance().getModuleManager().getModule(LongJump.class);
-            PearlPrediction pearlPredicition = (PearlPrediction) Naven.getInstance().getModuleManager().getModule(PearlPrediction.class);
+            //PearlPrediction pearlPredicition = (PearlPrediction) Naven.getInstance().getModuleManager().getModule(PearlPrediction.class);
             AntiWeb antiWeb = (AntiWeb)Naven.getInstance().getModuleManager().getModule(AntiWeb.class);
             active = true;
 
@@ -62,8 +62,8 @@ public class RotationManager {
                 setRotations(new Vector2f(scaffold.rots.x, scaffold.rots.y));
             } else if (aura.isEnabled() && Aura.target != null && Aura.rotation != null) {
                 setRotations(new Vector2f(Aura.rotation.x, Aura.rotation.y));
-            } else if (pearlPredicition.isEnabled() && PearlPrediction.isThrowing && PearlPrediction.rotations != null) {
-                setRotations(new Vector2f(PearlPrediction.rotations.x, PearlPrediction.rotations.y));
+            /*} else if (pearlPredicition.isEnabled() && PearlPrediction.isThrowing && PearlPrediction.rotations != null) {
+                setRotations(new Vector2f(PearlPrediction.rotations.x, PearlPrediction.rotations.y));*/
             } else if (antiWeb.isEnabled() && antiWeb.rots != null) {
                 setRotations(new Vector2f(antiWeb.rots.x, antiWeb.rots.y));
             } else if (!aimAssist.isEnabled() || !aimAssist.working) {

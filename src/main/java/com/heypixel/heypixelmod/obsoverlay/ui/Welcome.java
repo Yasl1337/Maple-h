@@ -1,11 +1,11 @@
 package com.heypixel.heypixelmod.obsoverlay.ui;
 
-import com.heypixel.heypixelmod.obsoverlay.ui.MainUI.MainUI;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -61,7 +61,7 @@ public class Welcome extends Screen {
                     fadeAlpha = 0;
                     fadeInStage = 3;
                     if (this.minecraft != null) {
-                        this.minecraft.setScreen(new MainUI());
+                        this.minecraft.setScreen(new TitleScreen());
                     }
                 }
                 break;
