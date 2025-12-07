@@ -1,5 +1,6 @@
 package com.heypixel.heypixelmod.obsoverlay.modules.impl.render;
 
+import com.heypixel.heypixelmod.obsoverlay.Naven;
 import com.heypixel.heypixelmod.obsoverlay.events.api.EventTarget;
 import com.heypixel.heypixelmod.obsoverlay.events.api.types.EventType;
 import com.heypixel.heypixelmod.obsoverlay.events.impl.EventMotion;
@@ -10,6 +11,7 @@ import com.heypixel.heypixelmod.obsoverlay.modules.Category;
 import com.heypixel.heypixelmod.obsoverlay.modules.Module;
 import com.heypixel.heypixelmod.obsoverlay.modules.ModuleInfo;
 import com.heypixel.heypixelmod.obsoverlay.modules.impl.misc.ChestStealer;
+import com.heypixel.heypixelmod.obsoverlay.modules.impl.misc.ContainerStealer;
 import com.heypixel.heypixelmod.obsoverlay.utils.BlockUtils;
 import com.heypixel.heypixelmod.obsoverlay.utils.ChunkUtils;
 import com.heypixel.heypixelmod.obsoverlay.utils.RenderUtils;
@@ -169,8 +171,8 @@ public class ChestESP extends Module {
             this.renderBoundingBoxes.clear();
             this.storageTypes.clear();
 
-            // 更新偷取动画
-            updateStealingAnimations();
+            // 更新偷取动画 -- 有屁用
+            //updateStealingAnimations();
 
             for (BlockEntity blockEntity : blockEntities) {
                 if (blockEntity instanceof ChestBlockEntity) {
@@ -199,7 +201,7 @@ public class ChestESP extends Module {
 
     private void updateStealingAnimations() {
         // 检查当前正在偷取的箱子 - 使用正确的模块管理器引用
-        ChestStealer stealer = getChestStealer();
+        ChestStealer stealer = (ChestStealer) Naven.getInstance().getModuleManager().getModule(ChestStealer.class);
         if (stealer != null && stealer.isEnabled()) {
             BlockPos currentChest = stealer.getCurrentChest();
             if (currentChest != null && !stealingAnimations.containsKey(currentChest)) {
@@ -210,25 +212,6 @@ public class ChestESP extends Module {
         // 移除过期的动画（3秒后）
         long currentTime = System.currentTimeMillis();
         stealingAnimations.entrySet().removeIf(entry -> currentTime - entry.getValue() > 3000);
-    }
-
-    // 修复：获取 ChestStealer 模块的正确方法
-    private ChestStealer getChestStealer() {
-        try {
-            // 使用反射来获取模块管理器，避免编译时依赖
-            Class<?> moduleManagerClass = Class.forName("com.heypixel.heypixelmod.obsoverlay.ModuleManager");
-            Object moduleManager = moduleManagerClass.getField("INSTANCE").get(null);
-            return (ChestStealer) moduleManagerClass.getMethod("getModuleByName", String.class).invoke(moduleManager, "ChestStealer");
-        } catch (Exception e) {
-            // 如果上面的方法失败，尝试直接获取模块实例
-            try {
-                // 如果您的客户端有静态的模块实例，可以使用这种方式
-            } catch (Exception ex) {
-                // 如果所有方法都失败，返回 null
-                return null;
-            }
-        }
-        return null;
     }
 
     private AABB getChestBox(ChestBlockEntity chestBE) {
